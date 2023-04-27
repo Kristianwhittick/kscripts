@@ -1,0 +1,54 @@
+-- Remove Duplicate Message v2.1
+-- An Applescript by Barry Wainwright, 15th October 2010
+-- Detects and deletes duplicate messages within a selected folder
+-- works on Message-ID header - uniquely identifying duplicates
+
+-- Version History
+-- v1.0 - 2002-03-18: First Release (For Microsoft Entourage)
+-- v2.0 - 2010-10-07: modified to work with Microsoft Outlook for Mac
+-- v2.1 - 2010-10-15: added final dialog to summarise messages removed
+
+tell application "Microsoft Outlook"
+  set theMessages to current messages
+	if theMessages = {} then
+		try
+			set theFolder to selected folder
+			set mb to theFolder
+		on error
+			display dialog "In the folder listing, please select the folder you want to be scanned for duplicates" with icon stop buttons {"Quit"} default button 1
+			return -99
+		end try
+	else
+		set mb to folder of item 1 of theMessages
+	end if
+	set theName to name of mb
+	say "Removing duplicates from mail folder: " & theName
+	set y to count messages of mb
+	say "Number of messages to check, " & y
+	set IDlist to {}
+	repeat with x from y to 1 by -1
+		try
+			set theHeaders to (get headers of message x of mb)
+			set AppleScript's text item delimiters to {return & "Message-"}
+			set temp to text item 2 of theHeaders
+			set AppleScript's text item delimiters to {return}
+			set theId to text 5 through -1 of text item 1 of temp
+		on error
+			set theId to ""
+		end try
+		if theId is in my IDlist then
+			delete message x of mb
+		else if theId ≠ "" then
+			copy theId to end of IDlist
+		end if
+		if x mod 100 = 0 then say "" & x
+	end repeat
+	set removedCount to y - (count messages of mb)
+	if removedCount is 0 then
+		say "Finished. No duplicates detected"
+	else
+		say "Finished. " & removedCount & " duplicates removed"
+	end if
+	display dialog "" & y & " messages checked" & return & removedCount & " messages removed" buttons {"OK"} default button 1
+	set AppleScript's text item delimiters to {""}
+end tell
