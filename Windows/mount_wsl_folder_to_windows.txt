@@ -1,0 +1,1 @@
+mklink /d c:\Users\krist\workyara\posth3 "\\wsl$\Ubuntu\home\kris\yara"

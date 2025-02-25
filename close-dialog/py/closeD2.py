@@ -102,14 +102,14 @@ def winEnumHandler( hwnd, ctx ):
 def main():
 
     win32gui.EnumWindows( winEnumHandler, None )
-    
-    pass = 4
 
-    while(pass > 0):
-        findDialog();
+    pass_text = 4
+
+    while (pass_text > 0):
+        findDialog()
         if nonefound:
             time.sleep(3) # Sleep for 10 seconds
-            pass = pass - 1
+            pass_text = pass_text - 1
         else:
             time.sleep(0.01) # Sleep for 1 second
     

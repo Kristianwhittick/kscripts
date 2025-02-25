@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+  <head>
+    <style type="text/css">
+    *   {
+            margin: 0;
+            padding: 0;
+        }
+        .imgbox {
+            display: grid;
+            height: 80%;
+        }
+        .center-fit {
+            max-width: 100%;
+            max-height: 100vh;
+            margin: auto;
+            float: none;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+      const sharepoint = "https://clarks365.sharepoint.com/_layouts/15/userphoto.aspx?size=L&username=";
+      const domainsuffix = "@clarks.com";
+      const empty = "";
+
+      function mergeNames() {
+
+        var firstname = document.getElementById("fname").value.trim();
+        var lastname  = document.getElementById("lname").value.trim();
+
+        return firstname + ( (lastname.length > 0) ? "." : empty) + lastname;
+      }
+
+      function onChangeFirstLasst() {
+
+        changeImage(mergeNames());
+        return true;
+      }
+
+      function onEmailChanged() {
+
+        var emailaddress = document.getElementById("emailaddress").value.trim();
+
+        setFirstLastText(changeImage(emailaddress));
+        return true;
+      }
+
+      function autoCompleteEmail(emailaddress) {
+
+        emailaddress = stripDomain(emailaddress) + domainsuffix;
+        document.getElementById("emailaddress").value = emailaddress;
+
+        return emailaddress;
+      }
+
+      function setFirstLastText(nameStr) {
+
+        parts = stripDomain(nameStr).split(".", 2);
+
+        document.getElementById("fname").value = parts[0];
+        document.getElementById("lname").value = (parts.length == 2) ? parts[1] : "";
+        return true;
+      }
+
+      function stripDomain(emailaddress) {
+        return emailaddress.split("@", 1)[0];
+      }
+
+      function is_email(email){
+        var emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return emailReg.test(email);
+      }
+
+      function changeImage(emailaddress) {
+
+        emailaddress = autoCompleteEmail(emailaddress);
+
+        document.getElementById("image").src = sharepoint + (is_email(emailaddress) ? emailaddress : "");
+
+        return emailaddress;
+      }
+    </script>
+
+    <title></title>
+  </head>
+
+  <body>
+
+    <div class="Entry" align="center">
+
+      <h2>Sharepoint Profile Image viewer</h2>
+
+      <label for="First Name">First name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+      <input type="text" name="fname" id="fname" onkeyup="onChangeFirstLasst()"><br>
+      <label for="Last Name">Last name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+      <input type="text" name="lname" id="lname" onkeyup="onChangeFirstLasst()"><br>
+      <label for="EMAIL">Email Address</label>
+      <input type="email" name="emailaddress" id="emailaddress" autocomplete="on" onkeyup="onEmailChanged()" value="@clarks.com"><br>
+    </div>
+
+    <div class="imgbox">
+      <img id="image"
+         name="image"
+         class="center-fit"
+         src="https://clarks365.sharepoint.com/_layouts/15/userphoto.aspx?size=L&amp;username=a"
+         width="500"
+         alt="Profile">
+    </div>
+  </body>
+</html>

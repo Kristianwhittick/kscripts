@@ -1,0 +1,30 @@
+Instructions
+------------
+This link explains how to enable using powershell
+Summary of the link above
+	Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -value 0
+	Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+
+https://pureinfotech.com/enable-remote-desktop-powershell-windows-10/
+
+Run as Admin
+------------
+This link shows how to run as administrator without being prompted for password.
+
+https://www.howtogeek.com/638652/create-administrator-mode-shortcuts-without-uac-prompts-in-windows-10/
+
+This is the command to add I used in the task.
+	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -windowstyle hidden -Command "Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name fDenyTSConnections -value 0"
+
+
+Trouble shooting
+----------------
+https://searchvirtualdesktop.techtarget.com/tip/Top-5-remote-desktop-connectivity-problems-and-how-to-prevent-them
+
+https://docs.microsoft.com/en-us/windows-server/remote/remote-desktop-services/troubleshoot/rdp-error-general-troubleshooting
+
+https://docs.microsoft.com/en-us/troubleshoot/windows-server/remote/troubleshoot-remote-desktop-disconnected-errors
+
+https://support.microsoft.com/en-us/windows/fix-wi-fi-connection-issues-in-windows-9424a1f7-6a3b-65a6-4d78-7f07eee84d2c
+
+https://upcloud.com/community/tutorials/resolve-problems-windows-remote-desktop/

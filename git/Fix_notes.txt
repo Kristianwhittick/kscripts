@@ -1,0 +1,69 @@
+tobidobi
+
+
+Git Tower
+
+
+1) Changed file
+git restore <file>
+
+2) recover deleted file
+git restore <file>
+
+3) restore a chunk.
+git retore -p <file>
+
+4) discard all local changes
+git retore .
+
+5) Fix last commit - comment
+git commit --ammend -m "message"
+
+6) revert a commit in the middle
+git revert [hash]
+
+7) resetting to an old revision
+git reset --hard [hash]
+git reset --mixed [hash]
+
+8) Reset single file
+git restore --source [Hash] <file>
+
+9) Restoring deleted commnets
+git reflog
+git branch {branch-name} [HASH]
+
+10) Recover delete branch
+git reflog
+git branch {branch-name} [HASH]
+
+11) move last commit on head to new branch
+git branch {branch-name}
+git reset HEAD~1 --hard
+
+12) move a comment to a differnt branch
+git checkout {destination-branch}
+git cherry-pick [HASH]
+git checkout master
+git reset --hard HEAD~1
+
+13) edit old comment  (Alwasy rebase to parent of change)
+git rebase -i HEAD~3
+
+14) Delete old commit.
+git rebase -i HEAD~3
+(Use drop)
+
+15) Squash - commits to gether
+git rebase -i HEAD~3
+(Use squash - will merge with the above commit)
+
+16) Add changes to old commit
+git add <filename>
+git commit --fixup [HASH]
+git rebase -i HEAD~4 --autosquash
+
+17) Split a commit
+
+
+

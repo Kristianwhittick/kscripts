@@ -1,0 +1,5 @@
+Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -value 0
+
+
+
+-windowstyle hidden -Command "$Stamp = (Get-Date).toString('yyyy/MM/dd HH:mm:ss') ; $before = (get-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name fDenyTSConnections).fDenyTSConnections ; Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name fDenyTSConnections -value 0 ; $after = (get-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name fDenyTSConnections).fDenyTSConnections ;  Add-Content c:\log\remote_log.txt -Value $Stamp'  before = '$before'  After = '$after"
